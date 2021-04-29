@@ -1,0 +1,27 @@
+## Configuração .gitignore
+
+# CMake
+cmake-build-*/
+
+# IntelliJ
+out/
+.idea/dictionaries/
+.idea/.gitignore
+
+# NetBeans
+**/nbproject/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# vscode
+.vscode/
+*.code-workspace
+
+# Cradle
+.cradle/
+
+# Outros
+*.iws

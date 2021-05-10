@@ -16,7 +16,7 @@ public class Tela {
     ArrayList<Pedido> arrayPedidos;
 
     public Tela() {
-
+        arrayPedidos = new ArrayList<>();
     }
 
     public void show() {
@@ -40,45 +40,47 @@ public class Tela {
         while (true) {
             System.out.println(menuPrincipal);
             op = input.nextInt();
+            input.nextLine();
             if (op < 1 || op > 2) {
                 System.out.println("Opção Inválida, tente novamente");
             } else if (op == 1) {
                 pedidos = new Pedido();
                 System.out.println("Insira o nome do cliente");
                 pedidos.setNome(input.nextLine());
-                input.next();
                 System.out.println("Insira o endereço do cliente");
                 pedidos.setEndereco(input.nextLine());
-                input.next();
                 System.out.println("Insira o telefone do cliente");
                 pedidos.setTel(input.nextLine());
-                input.next();
                 System.out.println("ADICIONANDO PRATOS");
                 while (x > 0) {
                     System.out.println(menuPratos);
                     System.out.println("Digite a opção do prato desejado, a quantidade e se precisar, alguma observação.");
                     int prato = input.nextInt();
+                    input.nextLine();
                     System.out.println("insira a quantidade");
                     int qtde = input.nextInt();
+                    input.nextLine();
                     System.out.println("OBS: ");
                     String obs = input.nextLine();
-                    pedidos.addPrato(prato,qtde,obs);
+                    pedidos.addPrato(prato, qtde, obs);
                     arrayPedidos.add(pedidos);
                     System.out.println("Voce deseja adicionar mais um prato?");
                     System.out.println("1- SIM\n2- NÃO");
                     op = input.nextInt();
+                    input.nextLine();
                     if (op == 1) {
                         x = 1;
-                    }else{
-                        x=0;
+                    } else {
+                        x = 0;
                     }
                 }
             } else {
+                String nota = null;
+                for (Pedido pedido : arrayPedidos) {
+                    nota += pedido.getNome();
 
-                for (int i = 0; i < arrayPedidos.size(); i++) {
-                    Pedido pedido = this.arrayPedidos.get(i);
-                    String ble = pedido.getNome();
                 }
+
             }
         }
     }

@@ -29,6 +29,7 @@ public class Tela {
     }
     public void show(){
         gerador.addAlunos();
+        gerador.gerarGrupos();
     }
 }
 

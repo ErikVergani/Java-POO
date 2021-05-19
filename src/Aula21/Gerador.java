@@ -1,6 +1,8 @@
 package Aula21;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
 
 /**
  * @author ErikVergani
@@ -43,12 +45,43 @@ public class Gerador {
             String[] nomeEmail = arquivo.lerLinha().split(";");
             alunos.add(new Aluno(nomeEmail[0], nomeEmail[1]));
         }
-        for (Aluno alunos : alunos) {
-            System.out.println(alunos.getNome() + " -> " + alunos.getEmail());
-        }
     }
 
     public void gerarGrupos() {
-        
+        Collections.shuffle(alunos); // embaralha a lista de alunos
+        Scanner input = new Scanner(System.in);
+        int alunosNoGrupo = 0;
+        System.out.println("Quantos alunos terá cada grupo?");
+        alunosNoGrupo = input.nextInt();
+        input.nextLine();
+
+        //calculos
+        int qtdeGrupos = alunos.size() / alunosNoGrupo;
+        int sobraAlunos = alunos.size() % alunosNoGrupo;
+
+        for (int i = 0; i < qtdeGrupos; i++) {
+            System.out.println("\nGrupo " + (i + 1));
+            System.out.println("___________________");
+            for (int j = 0; j < alunosNoGrupo; j++) {
+                int escolha = (int) (Math.random() * alunos.size());
+                System.out.println(alunos.get(escolha).getNome());
+                alunos.remove(escolha);
+
+            }
+            System.out.println("___________________\n");
+
+        }
+        System.out.println("Num grupos: " + qtdeGrupos);
+        System.out.println("Sobraram: " + sobraAlunos);
+        System.out.println("Alunos que sobraram\n");
+
+        for (Aluno aluno : alunos) {
+            System.out.println(aluno.getNome());
+        }
+            System.out.println("\ngrupo " + (qtdeGrupos+1));
+            System.out.println("_________");
+            for (int i = 0; i < sobraAlunos; i++) {
+                System.out.println(alunos.get(i).getNome());
+            }
     }
 }

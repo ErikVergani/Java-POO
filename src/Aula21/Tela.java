@@ -22,14 +22,19 @@ Requisitos necessários:
 */
 
 public class Tela {
-    private Gerador gerador;
 
-    public Tela(Gerador gerador) {
-        this.gerador = gerador;
+
+    private GeradorV2 geradorV2;
+
+    public Tela(GeradorV2 gerador2) {
+
+        this.geradorV2 = gerador2;
     }
-    public void show(){
-        gerador.addAlunos();
-        gerador.gerarGrupos();
+
+    public void show2(){
+        geradorV2.embaralhar();
+        geradorV2.gerarGrupo();
+        geradorV2.mostrarGrupos();
     }
 }
 

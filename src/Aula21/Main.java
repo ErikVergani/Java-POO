@@ -8,9 +8,9 @@ package Aula21;
 public class Main {
 
     public static void main(String[] args) {
-    Gerador gerador = new Gerador();
-    Tela tela = new Tela(gerador);
-    tela.show();
+    GeradorV2 gerador2 = new GeradorV2();
+    Tela tela = new Tela(gerador2);
+    tela.show2();
     }
 
 }

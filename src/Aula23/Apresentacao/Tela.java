@@ -13,28 +13,22 @@ import java.util.Scanner;
 
 public class Tela {
 
-    public void show(){
+    public void show() {
         Menu menu = new Menu();
-        menu.addItem(new ItemMenu("Cadastrar contato", new CadastrarContato(),1));
-        menu.addItem(new ItemMenu("Lista de contatos",new ListaContatos(),2));
+        menu.addItem(new ItemMenu("Cadastrar contato", new CadastrarContato(), 1));
+        menu.addItem(new ItemMenu("Lista de contatos", new ListaContatos(), 2));
+        menu.addItem(new ItemMenu("Editar contato", new EditarContato(), 3));
+        menu.addItem(new ItemMenu("Deletar contato", new ExcluirContato(), 4));
+
         menu.gerarMenu();
     }
+
     public class CadastrarContato implements ProcessarItem {
 
         @Override
         public void processarItem() {
-            Scanner scanner = new Scanner(System.in);
-            ContatosDao contatosDao = new ContatosDao();
-
-            System.out.println("Insira o nome do contato: ");
-            String nome = scanner.nextLine();
-            System.out.println("Insira o numero de " + nome);
-            String numero = scanner.nextLine();
-            System.out.println("Insira o email de " + nome);
-            String email = scanner.nextLine();
-
-            contatosDao.save(new Contato(nome,numero,email));
-            System.out.println("\nContato adicionado com sucesso!");
+            TelaCadastro telaCadastro = new TelaCadastro();
+            telaCadastro.exibir();
         }
     }
 
@@ -45,12 +39,70 @@ public class Tela {
             Impressora impressora = new Impressora();
             ArrayList<Contato> contatos = new ArrayList<>();
             ContatosDao contatosDao = new ContatosDao();
+            contatos = contatosDao.readAll();
 
-            for (Contato contato : contatos = contatosDao.read()) {
-                impressora.addDocument(contato);
-                impressora.imprimir();
+            impressora.addDocument(new RelatorioContatos(contatos));
+            impressora.imprimir();
+        }
+    }
+
+    public class EditarContato implements ProcessarItem {
+
+        @Override
+        public void processarItem() {
+            Scanner scanner = new Scanner(System.in);
+            ListaContatos listaContatos = new ListaContatos();
+            ContatosDao contatosDao = new ContatosDao();
+            listaContatos.processarItem();
+
+            System.out.println("---- Editar Contato ----");
+            System.out.print("Qual ID do contato que deseja editar ? ");
+            int id = scanner.nextInt();
+            scanner.nextLine();
+
+            System.out.println("""
+                    O que deseja alterar ?
+                    [1] Nome
+                    [2] Telefone
+                    [3] E-mail""");
+            System.out.print("");
+            int opc = scanner.nextInt();
+            scanner.nextLine();
+
+            System.out.print("\nDigite aqui a nova informação: ");
+            String info = scanner.nextLine();
+
+            if (contatosDao.edit(id, opc, info)) {
+                System.out.println("Contato alterado com sucesso");
+            } else {
+                System.out.println("Não foi possível aterar o contato");
             }
+        }
+    }
 
+    public class ExcluirContato implements ProcessarItem {
+
+        @Override
+        public void processarItem() {
+            Scanner scanner = new Scanner(System.in);
+            ListaContatos listaContatos = new ListaContatos();
+            ContatosDao contatosDao = new ContatosDao();
+            listaContatos.processarItem();
+
+            System.out.println("Qual ID do contato que deseja excluir ?");
+            System.out.println("[0] Voltar");
+
+            int id = scanner.nextInt();
+            if (id == 0) {
+                System.out.println();
+            } else {
+                if (contatosDao.delete(id)) {
+                    System.out.println("Contato deletado com sucesso!");
+                } else {
+                    System.out.println("Não foi possível deletar o contato!");
+                }
+            }
         }
     }
 }
+

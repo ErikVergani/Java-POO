@@ -1,9 +1,8 @@
-package Aula23.Apresentacao;
+package Aula23WithoutGUI.Apresentacao;
 
-import Aula23.Negocio.*;
-import Aula23.Persistencia.ContatosDao;
+import Aula23WithoutGUI.Negocio.*;
+import Aula23WithoutGUI.Persistencia.ContatosDao;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -28,15 +27,8 @@ public class Tela {
 
         @Override
         public void processarItem() {
-            //TelaCadastro telaCadastro = new TelaCadastro();
-            //telaCadastro.exibir();
-            Contato contato = new Contato();
-            TelaCadastroGUI telaCadastroGUI = new TelaCadastroGUI();
-            telaCadastroGUI.setContentPane(telaCadastroGUI.getter());
-            telaCadastroGUI.pack();
-            telaCadastroGUI.setContato(contato);
-            telaCadastroGUI.setVisible(true);
-
+            TelaCadastro telaCadastro = new TelaCadastro();
+            telaCadastro.exibir();
         }
     }
 
@@ -58,7 +50,6 @@ public class Tela {
 
         @Override
         public void processarItem() {
-
             Scanner scanner = new Scanner(System.in);
             ListaContatos listaContatos = new ListaContatos();
             ContatosDao contatosDao = new ContatosDao();
@@ -68,44 +59,24 @@ public class Tela {
             System.out.print("Qual ID do contato que deseja editar ? ");
             int id = scanner.nextInt();
             scanner.nextLine();
-            id--;
 
-//            System.out.println("""
-//                    O que deseja alterar ?
-//                    [1] Nome
-//                    [2] Telefone
-//                    [3] E-mail""");
-//            System.out.print("");
-//            int opc = scanner.nextInt();
-//            scanner.nextLine();
-//
-//            System.out.print("\nDigite aqui a nova informação: ");
-//            String info = scanner.nextLine();
-            ArrayList<Contato> c = new ArrayList<>();
-            c = contatosDao.readAll();
+            System.out.println("""
+                    O que deseja alterar ?
+                    [1] Nome
+                    [2] Telefone
+                    [3] E-mail""");
+            System.out.print("");
+            int opc = scanner.nextInt();
+            scanner.nextLine();
 
-//            JFrame frame = new JFrame("TelaCadastroGUI");
-//            TelaCadastroGUI telaCadastroGUI = new TelaCadastroGUI();
-//            frame.setContentPane(telaCadastroGUI.getter());
-//            telaCadastroGUI.setContato(c.get(id));
-//            telaCadastroGUI.setIdContato(id);
-//            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//            frame.setLocationRelativeTo(null);
-//            frame.pack();
-//            frame.setVisible(true);
+            System.out.print("\nDigite aqui a nova informação: ");
+            String info = scanner.nextLine();
 
-            TelaCadastroGUI telaCadastroGUI = new TelaCadastroGUI();
-            telaCadastroGUI.setContentPane(telaCadastroGUI.getter());
-            telaCadastroGUI.pack();
-            telaCadastroGUI.setContato(c.get(id));
-            telaCadastroGUI.setIdContato(id);
-            telaCadastroGUI.setVisible(true);
-
-//            if (contatosDao.edit(id, opc, info)) {
-//                System.out.println("Contato alterado com sucesso");
-//            } else {
-//                System.out.println("Não foi possível aterar o contato");
-//            }
+            if (contatosDao.edit(id, opc, info)) {
+                System.out.println("Contato alterado com sucesso");
+            } else {
+                System.out.println("Não foi possível aterar o contato");
+            }
         }
     }
 

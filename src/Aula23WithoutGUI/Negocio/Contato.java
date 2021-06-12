@@ -1,4 +1,4 @@
-package Aula23.Negocio;
+package Aula23WithoutGUI.Negocio;
 
 /**
  * @author ErikVergani
@@ -13,12 +13,6 @@ public class Contato {
         this.nome = nome;
         this.telefone = telefone;
         this.email = email;
-    }
-    public Contato()
-    {
-        this.nome = "";
-        this.email = "";
-        this.telefone = "";
     }
 
     public String getNome() {

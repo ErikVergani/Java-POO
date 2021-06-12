@@ -1,7 +1,7 @@
-package Aula23.Persistencia;
+package Aula23WithoutGUI.Persistencia;
 
-import Aula23.Negocio.Arquivo;
-import Aula23.Negocio.Contato;
+import Aula23WithoutGUI.Negocio.Arquivo;
+import Aula23WithoutGUI.Negocio.Contato;
 
 import java.util.ArrayList;
 
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class ContatosDao {
 
     public ArrayList<Contato> readAll() {
-        Arquivo arquivo = new Arquivo("E:\\Software Engineer\\WorkSpace\\Univates\\JavaPoo\\src\\Aula23\\Persistencia\\Contatos.txt");
+        Arquivo arquivo = new Arquivo("E:\\Software Engineer\\WorkSpace\\Univates\\JavaPoo\\src\\Aula23WithoutGUI\\Persistencia\\Contatos.txt");
         ArrayList<Contato> contatos = new ArrayList<>();
 
         if (arquivo.abrirLeitura()) {
@@ -28,7 +28,7 @@ public class ContatosDao {
     }
 
     public void save(Contato contato) {
-        Arquivo arquivo = new Arquivo("E:\\Software Engineer\\WorkSpace\\Univates\\JavaPoo\\src\\Aula23\\Persistencia\\Contatos.txt");
+        Arquivo arquivo = new Arquivo("E:\\Software Engineer\\WorkSpace\\Univates\\JavaPoo\\src\\Aula23WithoutGUI\\Persistencia\\Contatos.txt");
         ArrayList<Contato> contatos = readAll();
 
         contatos.add(contato);
@@ -41,26 +41,36 @@ public class ContatosDao {
         arquivo.fecharArquivo();
     }
 
-    public void edit(int id, /*int opc, String info*/String nome,String telefone,String email) {
-        Arquivo arquivo = new Arquivo("E:\\Software Engineer\\WorkSpace\\Univates\\JavaPoo\\src\\Aula23\\Persistencia" + "\\Contatos.txt");
+    public boolean edit(int id, int opc, String info) {
+        Arquivo arquivo = new Arquivo("E:\\Software Engineer\\WorkSpace\\Univates\\JavaPoo\\src\\Aula23WithoutGUI\\Persistencia" + "\\Contatos.txt");
         ArrayList<Contato> contatosCad = readAll();
+        boolean result = false;
+        id--;
 
-        contatosCad.get(id).setNome(nome);
-        contatosCad.get(id).setTelefone(telefone);
-        contatosCad.get(id).setEmail(email);
+        if (arquivo.abrirLeitura()) {
+            if (opc == 1) {
+                contatosCad.get(id).setNome(info);
+            } else if (opc == 2) {
+                contatosCad.get(id).setTelefone(info);
+            } else if (opc == 3) {
+                contatosCad.get(id).setEmail(info);
+            }
+        }
+        arquivo.fecharArquivo();
 
         if (arquivo.abrirEscrita()) {
             for (Contato c : contatosCad) {
                 arquivo.escreverLinha(c.toString());
             }
-            arquivo.fecharArquivo();
+            result = true;
         }
+        arquivo.fecharArquivo();
+        return result;
     }
-
 
     public boolean delete(int id) {
         boolean result = false;
-        Arquivo arq = new Arquivo("E:\\Software Engineer\\WorkSpace\\Univates\\JavaPoo\\src\\Aula23\\Persistencia" + "\\Contatos.txt");
+        Arquivo arq = new Arquivo("E:\\Software Engineer\\WorkSpace\\Univates\\JavaPoo\\src\\Aula23WithoutGUI\\Persistencia" + "\\Contatos.txt");
         ArrayList<Contato> contatosCad = readAll();
         id--;
 
